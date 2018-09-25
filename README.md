@@ -75,7 +75,7 @@ module.exports = async function (context, req) {
 ```
 
 Now you can test the Azure Function locally, by press the key **F5**  in VS code. Here are the screenshots.
-![run function](/images/create-function-vscode.gif)
+![run function](/images/run-function-vscode.gif)
 
 ### 3. Deploy Function to Azure Manually and test it
 
