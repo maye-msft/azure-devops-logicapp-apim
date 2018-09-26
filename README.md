@@ -1,4 +1,4 @@
-# A Demo Project of Azure Logic App CD/CI with [Azure DevOps](https://azure.microsoft.com/en-us/services/devops/)
+# Azure Logic App CD/CI with [Azure DevOps](https://azure.microsoft.com/en-us/services/devops/)
 > This is a demo project to show how to use [Azure DevOps](https://azure.microsoft.com/en-us/services/devops/)
 
 It includes the following sub projects:
@@ -21,7 +21,7 @@ https://azure.microsoft.com/en-us/services/logic-apps/
 https://docs.microsoft.com/en-us/azure/logic-apps/
 https://blog.mexia.com.au/microsoft-azure-ipaas
 
-Logic App can be created in Azure Portal or Visual Studio and it can be deployed to Azure manually, while in real business senario, it is need to delpoy the logic to production azure environment by tool after tests run successfully.
+Logic App can be created in Azure Portal or Visual Studio and it can be deployed to Azure manually, while in real business senario, it is need to deploy the logic to production azure environment by tool after tests run successfully.
 
 - ### What is Azure DevOps
 With Azure DevOps Services and TFS, you gain an integrated set of services and tools to manage your software projects, from planning and development through testing and deployment. 
@@ -75,6 +75,16 @@ module.exports = async function (context, req) {
 ```
 
 Now you can test the Azure Function locally, by press the key **F5**  in VS code. Here are the screenshots.
+
+The function will run on the URL http://localhost:7071/api/addtimestamp?name=hello
+and it will return the result
+```
+{
+  "name": "hello",
+  "ts": "2018-09-25T07:09:50.885Z"
+}
+```
+
 ![run function](/images/run-function-vscode.gif)
 
 ### 3. Deploy Function to Azure Manually and test it
@@ -102,16 +112,52 @@ git init
 git add --all
 git commit -m "Initial commit"
 git remote add origin <remote repo URL>
-git push -u origin master
+git push -uf origin master
 ```
 
 #### Now the Azure Function is ready.
 
-### 5. Create Logic App in Visual Studio
+### 5. Create Logic App in Visual Studio 2017
+In this demo, we will write the result into Azure Blob Storage, so we create the Storage container first. and the storage account name is "mayemsftlogicappstorage" and the container's name is "resultfolder".
+![create storage](/images/create-blob-storage.gif)
 
-### 6. Test in Dev Envrivonment
+Here is a document of how to create Logic App in Visual Studio 2017
+https://docs.microsoft.com/en-us/azure/logic-apps/quickstart-create-logic-apps-with-visual-studio
 
-### 7. Create QA Envrivonment and Deploy
+And here are screenshots
+Create Logic App project in VS2017
+![create logicapp project](/images/create-logicapp-project.gif)
 
-### 8. Create Production Envrivonment and Deploy
+Build a Logic App and using the Azure Function
+![build logicapp function](/images/build-logicapp-function.gif)
+
+Write the result to Storage
+![build logicapp function](/images/build-logicapp-storage.gif)
+
+Deploy the Logic App in VS2017 manually
+![deploy logicapp manually](/images/deploy-logicapp-manually.gif)
+
+Test Logic App in Postman and check if the result written into the blob storage.
+![test logicapp in browser](/images/test-logicapp.gif)
+
+Commit Logic App to Azure DevOps Repository
+![commit logicapp](/images/commit-logicapp-vsts.gif)
+
+### 6. Create QA Envrionment and Release Pipeline
+
+### 7. Create Production Envrionment and Release Pipeline
+
+
+TODO
+- Java based Function.
+- .Net based Function.
+- Function Test in Build/Release Pipeline.
+- Manual trigger to Production Stage.
+- Rollback and HA 
+- Implement A Logic App Pattern including Service Bus.
+- Using APIM to protect the API.
+- APIM CD/CI.
+- Monitor Logic App with OMS
+- GUI in HTML  
+
 
