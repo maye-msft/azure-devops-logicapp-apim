@@ -1,7 +1,12 @@
 # Azure Logic App CD/CI with [Azure DevOps](https://azure.microsoft.com/en-us/services/devops/)
 > This is a demo project to show how to use [Azure DevOps](https://azure.microsoft.com/en-us/services/devops/)
 
-It includes the following sub projects:
+Here is the screenshots of Logic App and release pipeline:
+![azure function](/images/azure-function.jpg)
+
+![release pipeline](/images/release-pipeline.jpg)
+
+The demo includes the following sub projects:
 - **A Logic App** project
 In this demo, it has a very simple Logic App triggered by HTTP Request and then invoke an Azure Function and write the output of the Function to Azure Blob Storage.
 
@@ -128,7 +133,7 @@ And here are screenshots
 Create Logic App project in VS2017
 ![create logicapp project](/images/create-logicapp-project.gif)
 
-Build a Logic App and using the Azure Function
+Create a Logic App and using the Azure Function
 ![build logicapp function](/images/build-logicapp-function.gif)
 
 Write the result to Storage
@@ -143,21 +148,48 @@ Test Logic App in Postman and check if the result written into the blob storage.
 Commit Logic App to Azure DevOps Repository
 ![commit logicapp](/images/commit-logicapp-vsts.gif)
 
-### 6. Create QA Envrionment and Release Pipeline
 
-### 7. Create Production Envrionment and Release Pipeline
+### 6. Create Release Pipeline
+Now we need to create build and release pipeline for the logic app.
+
+1. Create the build pipeline of the Azure Function **azure-devops-logicapp-apim-func**
+![create function build](/images/create-function-build-pipeline.gif)
+
+2. Create the build pipeline of the Logic App 
+![create function build](/images/create-logicapp-build-pipeline.gif)
+
+3. Create new storage containers for stages.
+The storage account name are 
+- "mayemsftlogicappdemodev" for Dev stage 
+- "mayemsftlogicappdemoqa" for QA stage 
+- "mayemsftlogicappdemoprod" for Production stage 
+
+And the container's name for those accounts is "resultfolder".
+
+4. Create Stages in the release pipeline
+![create function build](/images/create-release-pipeline-dev.gif)
+
+5. Config blob connection and parameters for different Stage.
+As we will have 3 stages with different storages, we will use pipeline variable to store the access key and put them into Logic App ARM template during release.
+
+Here is the screenshots to show the variable settings of pipeline.
+![create variable group](/images/create-release-pipeline-variable.gif)
+
+6. After the pipeline run successully, it will create logic app and Azure Function, (Function App need to be created manually). And the logic app trigger url can be found from portal. Postman can be used to test this. the screenshots below is to check the production deployment.
+![postman check prod](/images/postman-check-prod.gif)
 
 
-TODO
+### TODO
 - Java based Function.
 - .Net based Function.
 - Function Test in Build/Release Pipeline.
+- Postman test in Release Pipeline.
 - Manual trigger to Production Stage.
 - Rollback and HA 
 - Implement A Logic App Pattern including Service Bus.
 - Using APIM to protect the API.
 - APIM CD/CI.
 - Monitor Logic App with OMS
-- GUI in HTML  
+
 
 
